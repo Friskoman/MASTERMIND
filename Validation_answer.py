@@ -2,6 +2,13 @@ import copy
 
 
 def validation_answer(secretcode, guess):
+    """ ensuring that every guess you make you get the correct feedback for it
+
+    secretcode = the generated code which needs to be cracked 4 long between 0/5
+    guess = made guess by the player/algorithm 4 long between 0/5
+
+    returns feedback on the form (x,y) where x = right number and right position y = right number but wrong place
+    """
     code = copy.copy(secretcode)
     LOCodeList = []
     LOGuessList = []

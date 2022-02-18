@@ -1,4 +1,7 @@
 def allguesses_generator():
+    """makes a list with all possible guesses
+
+     returns the list with all possible guesses"""
     celing = 6
     allGuesses = []
     for a in range(celing):
