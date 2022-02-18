@@ -1,5 +1,10 @@
-import copy
 import random
+from Possible_sollutions import generate_feedbacktable, worstcase
+from all_combinations import allguesses_generator
+from Mastersolver_simpleAI import consistent_guesses
+from Validation_answer import validation_answer
+from Spice_algoritme import start_guesses
+
 
 def secret_code_generator():
     secret_code = []
@@ -8,54 +13,59 @@ def secret_code_generator():
         secret_code.append(x)
     return secret_code
 
+
 def guess_input_player():
-    valid_guess = []
     while True:
         guess = (input('try to crack te secret code \n'
-                          ' your guess can only be between 0/5 and needs to be 4 long\n'))
+                       ' your guess can only be between 0/5 and needs to be 4 long\n'))
         if len(guess) != 4:
             print('Sorry, pleas make a valid guess')
             continue
         else:
             break
 
-    for i in guess:
-        valid_guess.append(int(i))
-    return (valid_guess)
+    valid_guess = [int(i) for i in guess]
 
-def validation_answer(secretcode, guess):
-    code = copy.copy(secretcode)
-    LOCodeList = []
-    LOGuessList = []
-    BP = 0
-    WP = 0
-    for i in range(len(code)):
-        print(code[i], guess[i])
-        if code[i] == guess[i]:
-            BP +=1
-        else:
-            LOGuessList.append(guess[i])
-            LOCodeList.append(code[i])
-    for LOCodeListItem in LOCodeList:
-        if LOCodeListItem in LOGuessList:
-            LOGuessList.remove(LOCodeListItem)
-            WP += 1
-
-    if BP == 4:
-        print('you have cracked the code')
-        exit()
-    return (BP, WP)
+    return valid_guess
 
 
 def try_counter():
+    all_guesses = allguesses_generator()
     secretcode = secret_code_generator()
-    print(secretcode)
-    counter = 0
-    while counter != 10:
-        print('try', counter+1)
-        guess = guess_input_player()
-        print(validation_answer(secretcode, guess))
+    counter = 1
+    while True:
+        choicemenu = int(input('wich of the 3 stragaties would you like to run?\n'
+                               '1. Simple\n'
+                               '2. worst case\n'
+                               '3. spice\n'))
+        if choicemenu > 4 or choicemenu < 0:
+            continue
+        else:
+            break
+    while counter != 11:
+        print('try', counter)
+        guess = []
+        if choicemenu == 1:
+            guess = all_guesses[0]
+
+        elif choicemenu == 2:
+            feedbacktable = generate_feedbacktable(all_guesses)
+            guess = worstcase(feedbacktable, all_guesses)
+        else:
+            if counter < 4:
+                guess = start_guesses(counter)
+            else:
+                guess = all_guesses[random.randint(0, len(all_guesses) - 1)]
+        game_feedback = validation_answer(secretcode, guess)
+        all_guesses = consistent_guesses(guess, all_guesses, game_feedback)
+        print(game_feedback)
         counter += 1
-    print('you have failed to crack the code')
+        if game_feedback == (4, 0):
+            print('you have cracked the code')
+            exit()
+    print('you have failed to crack the code\n'
+          'the code is', secretcode)
+    exit()
+
 
 try_counter()
