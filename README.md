@@ -4,5 +4,8 @@ Aan het begin van het spel wordt er een code gegenereerd. Deze code bevat 4 inte
 Er mogen 10 pogingen gedaan worden om de code te kraken. Na 10 poging fout te hebben, heb je verloren. Je wint het spel door de juiste code te raden binnen de 10 gegeven pogingen.
 
 # SPICE_ALGORITHM 
-de eerste 3 sets worden gebruikt om te bepalen welke kleuren/nummers er in voor kunnen komen, doormiddel van 1.AABB 2.CCDD 3.EEFF. Na dat dit bepaald hoeft er alleen rond geschoven te worden om de juiste plek te vinden. In worst case isde geheime combinaties 3 van het zelfde en 1 ander element bevat dan weet het algorithme 3 van de 4 en hoeft alleen de laatste positie door te lopen voor mogelijk feedback.
+Spice is nieuw voorgesteld algoritme om mastermind te kraken. Het werkt als volgt:
+
+1. De eerste drie gokken worden altijd gebruikt om te te bepalen welke kleuren (nummers) in de code voor kunnen komen. De eerste drie gokken zijn daarom altijd 1. [0,0,1,1] 2. [2,2,3,3] 3. [4,4,5,5].
+2. Vervolgens worden de kleuren doorgeschoven om de juiste plek te achterhalen tot dat de code gekraakt is.
 
