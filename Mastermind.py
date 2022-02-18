@@ -1,7 +1,7 @@
 import random
-from Possible_sollutions import generate_feedbacktable, worstcase
+from worse_case_algorithm import generate_feedbacktable, worstcase
 from all_combinations import allguesses_generator
-from Mastersolver_simpleAI import consistent_guesses
+from Simple_algorithm import consistent_guesses
 from Validation_answer import validation_answer
 from Spice_algoritme import start_guesses
 
